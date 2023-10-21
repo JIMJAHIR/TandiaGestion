@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Clientes</title>
+</head>
+
+<body>
+  {% include 'ventas/headerSale.html' %}
+
+  <div class="header">
+    <form id="search-form" method="POST" action="/sale">
+      <input type="text" id="search-input" name="ruc" placeholder="Buscar por RUC...">
+      <button type="submit">Buscar</button>
+    </form>
+  
+    <form id="add-customer-form" method="POST" action="/">
+      <button type="submit"><i class="fa-solid fa-plus"></i>Agregar Cliente</button>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <table class="clientes">
+      <thead>
+        <tr>
+          <th>Contrato</th>
+          <th>Ruc</th>
+          <th>Razón Social</th>
+          <th>Plan</th>
+          <th>Tiendas</th>
+          <th>Usuarios</th>
+          <th>Correo Soporte</th>
+          <th>Contraseña</th>
+          <th>I. Contrato</th>
+          <th>F. Contrato</th>
+          <th>FE</th>
+          <th>Estado</th>
+          <th>US</th>
+          <th>Contraseña</th>
+          <th>Link CD</th>
+          <th>Contraseña</th>
+          <th>Vencimiento</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in lista_clientes %}
+        <tr>
+          <td>{{ cliente[38] }}</td>
+          <td>{{ cliente[4] }}</td>
+          <td>{{ cliente[5] }}</td>
+          <td>{{ cliente[17] }}</td>
+          <td>{{ cliente[19] }}</td>
+          <td>{{ cliente[21] }}</td>
+          <td>{{ cliente[57] }}</td>
+          <td>{{ cliente[58] }}</td>
+          <td>{{ cliente[30] }}</td>
+          <td>{{ cliente[31] }}</td>
+          <td>{{ cliente[23] }}</td>
+          <td>{{ cliente[59] }}</td>
+          <td>{{ cliente[47] }}</td>
+          <td>{{ cliente[48] }}</td>
+          <td>{{ cliente[49] }}</td>
+          <td>{{ cliente[50] }}</td>
+          <td>{{ cliente[51] }}</td>
+          {% endfor %}
+      </tbody>
+    </table>
+    <div class="pagination">
+      <button id="prevPage"><i class="fa-solid fa-backward"></i></button>
+      <button id="prevPageNumber">0</button>
+      <button id="currentPage">1</button>
+      <button id="nextPageNumber">2</button>
+      <button id="nextPage"><i class="fa-solid fa-forward"></i></button>
+    </div>
+  </div>
+
+  {% include 'ventas/footer.html' %}
+</body>
+
+</html>

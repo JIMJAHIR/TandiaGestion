@@ -1,0 +1,53 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway:wght@100&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/26112bca0b.js" crossorigin="anonymous"></script>
+
+<nav class="navbar">
+
+  <div class="logo">
+    <img src="logo.png" alt="Logo de la empresa">
+  </div>
+
+  <div class="menu">
+    <ul>
+      <li><a>Clientes</a>
+        <ul>
+          <li><a href="{{ url_for('soporte.support') }}">Lista de Clientes</a></li>
+          <li><a href="{{ url_for('soporte.searchSupport') }}">Busqueda de Clientes</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Empleados</a>
+        <ul>
+          <li><a href="#">Juan</a></li>
+          <li><a href="#">Paco</a></li>
+          <li><a href="#">Ramón</a></li>
+          <li><a href="#">María</a></li>
+        </ul>
+      </li>
+      <li><a href="#">FAQ</a>
+        <ul>
+          <li><a href="#">Juan</a></li>
+          <li><a href="#">Paco</a></li>
+          <li><a href="#">Ramón</a></li>
+          <li><a href="#">María</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contacto</a>
+        <ul>
+          <li><a href="#">Email</a></li>
+          <li><a href="#">Mapa</a></li>
+        </ul>
+
+      </li>
+    </ul>
+  </div>
+
+  <div class="user-info">
+    <p>Bienvenido Soporte, {% if NombreCompleto and Rol %}
+    <p>{{ NombreCompleto }}</p>
+    {% endif %}</p>
+    <a href="/cerrarSesion"><i class="fa-solid fa-right-from-bracket"></i></a>
+  </div>
+</nav>
