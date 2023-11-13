@@ -6,22 +6,137 @@ body {
 
 /* ----------------------------- */
 
+/* Estilos LOGIN - INDEX */
+
 /* Estilo para el div izquierdo */
 .div_left {
-  background-color: rgba(37, 99, 235);
+  background-color: rgba(51, 51, 51);
   width: 50%;
   height: 100vh;
   float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+}
+
+.div_left_l {
+  background-color: rgba(37, 99, 235);
+}
+
+.div_left_l img {
+  max-width: 80%;
+  max-height: 100%;
+}
+
+.contenido p {
+  max-width: 80%;
+  margin: auto;
+  font-size: 12px;
+}
+
+.contenido div {
+  max-width: 30%;
+  margin: 20px auto;
+  background-color: rgba(37, 99, 235);
+  padding: 15px;
+  text-align: center;
+}
+
+.tandia_logo {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contenido div a {
+  text-decoration: none;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
 }
 
 /* Estilo para el div derecho */
 .div_right {
+  background-color: rgba(37, 99, 235);
+  width: 50%;
+  height: 100vh;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div_right img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.div_right_l {
   background-color: rgba(51, 51, 51);
   width: 50%;
   height: 100vh;
-  /* 50% de la altura de la ventana */
   float: left;
-  /* Colocar a la izquierda */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+}
+
+.div_login h2 {
+  text-align: center;
+}
+
+.div_login p {
+  max-width: 50%;
+  margin: auto;
+  font-size: 12px;
+}
+.login {
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+}
+
+.login label {
+  display: inline-block;
+  width: 30%;
+  text-align: left;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.login input[type="text"],
+.login input[type="password"] {
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+  min-width: 60%;
+  height: 25px;
+  margin-top: 10px;
+  border-left: 3px solid rgba(37, 99, 235);
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: rgb(255, 255, 255);
+}
+
+.login input[type="submit"] {
+  font-family: 'Montserrat', sans-serif;
+  width: 50%;
+  background-color: rgba(37, 99, 235);
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  margin: 25px auto;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.div_login p a {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin-bottom: 15px;
 }
 
 /* ----------------------------- */
@@ -44,7 +159,7 @@ body {
 
 /* Estilos para el logo */
 .logo img {
-  max-width: 150px;
+  max-width: 125px;
   margin-left: 20px;
 }
 
@@ -148,6 +263,7 @@ footer {
   justify-content: center;
   align-items: center;
   font-size: 12px;
+  z-index: 999;
 }
 
 /* ----------------------------- */
@@ -224,7 +340,7 @@ footer {
 
 /* Estilos para el contenedor de la tabla - Tabla Cliente*/
 .table-container {
-  width: 97.5%;
+  width: 98.5%;
   min-height: 500px;
   overflow-y: auto;
   position: absolute;
@@ -245,11 +361,27 @@ footer {
 .clientes td {
   padding: 10px;
   text-align: center;
-  color: rgb(67, 70, 138);
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 30px;
+}
+
+.clientes td:not(.green-true):not(.red-false):not(.orange-proces){
+  color: rgb(67, 70, 138);
+}
+
+.green-true{
+  color: rgb(89, 210, 136);
+  font-weight: 600;
+}
+
+.red-false{
+  color: rgb(255, 75, 75);
+  font-weight: 600;
+}
+
+.orange-proces{
+  color: rgb(255, 150, 0);
+  font-weight: 600;
 }
 
 /* Estilos para el encabezado de la tabla */
@@ -275,7 +407,6 @@ footer {
   flex-wrap: nowrap;
   overflow-x: auto;
   justify-content: space-between;
-  border: 1px solid red;
 }
 
 .inf-conteiner-infoClient {
@@ -309,6 +440,7 @@ footer {
   background-color: rgb(67, 70, 138);
   border-radius: 5px;
 }
+
 
 /* ----------------------------- */
 
@@ -377,6 +509,14 @@ footer {
   margin-bottom: 10px;
 }
 
+.newInput-container {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(67, 70, 138);
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+
 .input-container2 {
   width: 45%;
   margin-right: 5%;
@@ -419,12 +559,19 @@ footer {
   transition: background-color 0.3s ease;
 }
 
+.styled-button_imp {
+  border: none;
+  margin-top: 7.5px;
+  background-color: rgb(67, 70, 138);
+  color: rgb(255, 255, 255);
+}
+
 .styled-button:hover {
   border: 1px solid rgb(67, 70, 138);
   background-color: rgb(67, 70, 138);
 }
 
-.remove-button{
+.remove-button {
   border: 1px solid rgb(255, 60, 60);
   margin-top: 5px;
   background-color: rgb(255, 60, 60);
@@ -440,6 +587,10 @@ footer {
   background-color: rgb(220, 61, 61);
 }
 
+.ruc-validation-message {
+  display: block;
+  padding-left: 10px;
+}
 
 /* ----------------------------- */
 
@@ -447,7 +598,7 @@ footer {
 
 .conteiner-new {
   width: 90%;
-  min-height: 500px;
+  height: 86vh;
   overflow-y: auto;
   position: absolute;
   top: 50%;
@@ -455,6 +606,21 @@ footer {
   transform: translate(-50%, -50%);
   font-size: 10px;
   color: rgb(67, 70, 138);
+  padding-right: 10px;
+}
+
+.conteiner-imp {
+  height: 65vh;
+}
+
+.conteiner-new::-webkit-scrollbar {
+  width: 5px;
+  background-color: rgb(107, 110, 167);
+}
+
+.conteiner-new::-webkit-scrollbar-thumb {
+  background-color: rgb(67, 70, 138);
+  border-radius: 5px;
 }
 
 .titulo-newCliente {
@@ -468,28 +634,28 @@ footer {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-  column-gap: 2.5%; 
+  column-gap: 2.5%;
   justify-content: space-around;
 }
 
-.conteiner-infoNewClient-five{
+.conteiner-infoNewClient-five {
   grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
 }
 
-.conteiner-infoNewClient-three{
+.conteiner-infoNewClient-three {
   grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
 }
 
-.conteiner-infoNewClient-two{
+.conteiner-infoNewClient-two {
   grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
 }
 
-.conteiner-infoNewClient-one{
+.conteiner-infoNewClient-one {
   grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-  grid-column: 2; 
+  grid-column: 2;
 }
 
-.button-Colum3{
+.button-Colum3 {
   display: grid;
   grid-column: 3;
 }
@@ -505,35 +671,38 @@ footer {
 .label-checkbox {
   cursor: pointer;
   text-indent: -9999px;
-  width: 32px; /* Ancho ajustado a 48px */
-  height: 16px; /* Altura ajustada a 24px */
+  width: 32px;
+  height: 16px;
   background: grey;
   display: inline-block;
-  border-radius: 12px; /* Mitad de la altura para mantener la curvatura */
+  border-radius: 12px;
+  /* Mitad de la altura para mantener la curvatura */
   position: relative;
 }
 
 .label-checkbox:after {
   content: '';
   position: absolute;
-  top: 2px; /* Alineación vertical ajustada */
-  left: 2px; /* Alineación horizontal ajustada */
-  width: 12px; /* Ancho ajustado a 20px */
-  height: 12px; /* Altura ajustada a 20px */
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
   background: #fff;
-  border-radius: 50%; /* Forma circular */
+  border-radius: 50%;
   transition: 0.3s;
 }
 
-.checkbox:checked + .label-checkbox {
+.checkbox:checked+.label-checkbox {
   background: rgba(37, 99, 235);
 }
 
-.checkbox:checked + .label-checkbox:after {
-  left: calc(100% - 3px); /* Alineación horizontal ajustada */
+.checkbox:checked+.label-checkbox:after {
+  left: calc(100% - 3px);
   transform: translateX(-100%);
 }
 
 .label-checkbox:active:after {
-  width: 28px; /* Ancho ajustado a 28px en estado activo */
+  width: 28px;
 }
+
+  /* Estilos PopUp */

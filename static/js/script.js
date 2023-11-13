@@ -74,8 +74,17 @@ showPage(currentPage);
 
 
 
-function habilitarSecciones() {
+function habilitarSeccionesImp() {
   var checkBox = document.getElementById("implementadorCheckbox");
+  var secciones = document.querySelectorAll(".seccion-implementador");
+
+  for (var i = 0; i < secciones.length; i++) {
+    secciones[i].style.display = checkBox.checked ? "block" : "none";
+  }
+}
+
+function habilitarSecciones() {
+  var checkBox = document.getElementById("pass_sun_boolean");
   var secciones = document.querySelectorAll(".seccion-implementador");
 
   for (var i = 0; i < secciones.length; i++) {
