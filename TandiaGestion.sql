@@ -1,150 +1,182 @@
 -- Tabla Usuario
-USE tandiagestion;
-CREATE TABLE Usuario (
-    IdUsuario INT(4) ZEROFILL AUTO_INCREMENT PRIMARY KEY,
-    NombreUsuario VARCHAR(50) NOT NULL,
-    Contraseña VARCHAR(255) NOT NULL,
-    NombreCompleto VARCHAR(100) NOT NULL,
-    Correo VARCHAR(100) NOT NULL,
-    Telefono VARCHAR(20),
-    Rol VARCHAR(50) NOT NULL,
-    Estado VARCHAR(20) NOT NULL,
-    FechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+USE tandia;
+CREATE TABLE user (
+    user_id INT(4) ZEROFILL AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
+    user_full_name VARCHAR(255) NOT NULL,
+    user_emanil VARCHAR(100) NOT NULL,
+    user_phone_number VARCHAR(255),
+    user_role VARCHAR(255) NOT NULL,
+    user_area VARCHAR(255) NOT NULL,
+    user_state VARCHAR(255) NOT NULL,
+    user_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabla Asistencia
-USE tandiagestion;
-CREATE TABLE Asistencia (
-    IdAsistencia INT AUTO_INCREMENT PRIMARY KEY,
-    IdUsuario INT(4) ZEROFILL NOT NULL,
-    FechaEntrada DATETIME,
-    FechaSalida DATETIME,
-    EstadoAsistencia VARCHAR(20) NOT NULL,
-    FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
-);
-
--- Tabla Roles
-USE tandiagestion;
-CREATE TABLE Roles (
-    IdRol INT AUTO_INCREMENT PRIMARY KEY,
-    NombreRol VARCHAR(50) NOT NULL,
-    Descripcion VARCHAR(100)
+USE tandia;
+CREATE TABLE attendance (
+    attendance_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(4) ZEROFILL NOT NULL,
+    entry_date DATETIME,
+	departure_date DATETIME,
+    attendance_state VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
 -- Tabla NuevoCliente
-USE tandiagestion;
-CREATE TABLE NuevoCliente (
-    IdNuevoCliente INT AUTO_INCREMENT PRIMARY KEY,
-    AreaComercial VARCHAR(50),
-    EjecutivoComercial VARCHAR(50),
-    TipoCierre VARCHAR(50),
-    Ruc VARCHAR(15),
-    RazonSocial VARCHAR(100),
-    RepresentanteLegal VARCHAR(100),
-    NroDoc VARCHAR(15),
-    Departamento VARCHAR(50),
-    DireccionFiscal VARCHAR(250),
-    Rubro VARCHAR(50),
-    NombreCliente VARCHAR(100),
-    CorreoCliente VARCHAR(100),
-    TelefonoCliente VARCHAR(20),
-    NombreImplementador VARCHAR(100),
-    CorreoImplementador VARCHAR(100),
-    NumeroImplementador VARCHAR(15),
-    Plan VARCHAR(50),
-    TipoContrato VARCHAR(50),
-    NroTiendas INT,
-    TiendasConf VARCHAR(100),
-    NroUsuario INT,
-    UsuariosConf VARCHAR(100),
-    FE BOOLEAN,
-    CompraCD BOOLEAN,
-    Guias BOOLEAN,
-    MontoInicialPlan DECIMAL(10, 2),
-    MontoPendiente DECIMAL(10, 2),
-    NroFactura VARCHAR(20),
-    MontoRenovar DECIMAL(10, 2),
-    FechaPago DATE,
-    FechaInicioC DATE,
-    FechaFinC DATE,
-    ComentarioI TEXT,
-    ComentarioC TEXT,
-    TipoVenta VARCHAR(50)
+USE tandia;
+CREATE TABLE new_client (
+    client_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(4) ZEROFILL NOT NULL,
+	closure_type VARCHAR(255),
+    ruc VARCHAR(255),
+    social_name VARCHAR(255),
+    legal_representative VARCHAR(255),
+    doc_number VARCHAR(255),
+    department VARCHAR(255),
+    tax_address VARCHAR(255),
+    business_line VARCHAR(255),
+    client_name VARCHAR(255),
+    client_email VARCHAR(255),
+    client_phone VARCHAR(255),
+    implementor_name VARCHAR(255),
+    implementor_email VARCHAR(255),
+    implementor_phone VARCHAR(255),
+    plan VARCHAR(255),
+    contract_type VARCHAR(255),
+    stores_number INT,
+    stores_conf VARCHAR(255),
+    users_number INT,
+    users_conf VARCHAR(255),
+    fe BOOLEAN,
+    buy_cd BOOLEAN,
+    guides BOOLEAN,
+    initial_amount_plan DECIMAL(10, 2),
+    pending_amount DECIMAL(10, 2),
+    invoice_number VARCHAR(20),
+    renew_amount DECIMAL(10, 2),
+    payment_date DATE,
+    start_date DATE,
+    end_date DATE,
+    comment_i TEXT,
+    comment_c TEXT,
+    sale_type VARCHAR(255),
+	FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
-INSERT INTO NuevoCliente (
-    AreaComercial,
-    EjecutivoComercial,
-    TipoCierre,
-    Ruc,
-    RazonSocial,
-    RepresentanteLegal,
-    NroDoc,
-    Departamento,
-    DireccionFiscal,
-    Rubro,
-    NombreCliente,
-    CorreoCliente,
-    TelefonoCliente,
-    NombreImplementador,
-    CorreoImplementador,
-    NumeroImplementador,
-    Plan,
-    TipoContrato,
-    NroTiendas,
-    TiendasConf,
-    NroUsuario,
-    UsuariosConf,
-    FE,
-    CompraCD,
-    Guias,
-    MontoInicialPlan,
-    MontoPendiente,
-    NroFactura,
-    MontoRenovar,
-    FechaPago,
-    FechaInicioC,
-    FechaFinC,
-    ComentarioI,
-    ComentarioC,
-    TipoVenta
-) VALUES (
-    'OPERACIONES',
-    'Jahir Sánchez',
-    'VIRTUAL',
-    '1111',
-    'Jimmy Jahir Sánchez Ramón',
-    'Jimmy Jahir Sánchez Ramón',
-    '74725493',
-    'Lambayeque',
-    'San Agustin #280',
-    'Tecnología',
-    'Jimmy Jahir Sánchez Ramón',
-    'correo@cliente.com',
-    '935592320',
-    '',
-    '',
-    '',
-    'FULL',
-    'ANUAL',
-    3, -- Número de Tiendas
-    '2',
-    0, -- Número de Usuario
-    '5',
-    TRUE, -- FE
-    FALSE, -- CompraCD
-    FALSE, -- Guias
-    1000.00, -- Monto Inicial del Plan
-    0.00, -- Monto Pendiente
-    'FF01-001', -- Número de Factura
-    1000.00, -- Monto a Renovar
-    '2023-10-15', -- Fecha de Pago (ejemplo: 15 de octubre de 2023)
-    '2023-10-01', -- Fecha de Inicio del Contrato (ejemplo: 1 de octubre de 2023)
-    '2024-10-01', -- Fecha de Fin del Contrato (ejemplo: 1 de octubre de 2024)
-    'Comentario de Implementación',
-    'Comentario de Comercial',
-    'SISTEMA'
+-- Tabla Implementación
+USE tandia;
+CREATE TABLE Implementacion (
+    implemention_id INT AUTO_INCREMENT PRIMARY KEY,
+    ruc VARCHAR(255),
+    user_id INT(4) ZEROFILL NOT NULL,
+    contract_number VARCHAR(255),
+    pass_sun_boolean BOOLEAN,
+    pass_sun VARCHAR(255),
+    pass_pass_sun VARCHAR(255),
+    comercial_name VARCHAR(255),
+    comercial_address VARCHAR(255),
+    comercial_phone VARCHAR(255),
+    comercial_email VARCHAR(255),
+    taxes VARCHAR(255),
+    secundary_user VARCHAR(255),
+    pass_secundary_user VARCHAR(255),
+    url_cd VARCHAR(500),
+    pass_cd VARCHAR(255),
+    expiration_cd DATE,
+    gr_pass VARCHAR(255),
+    gr_id VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
+
+-- Tabla Compañia
+USE tandia;
+CREATE TABLE company (
+    company_id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT(4) ZEROFILL NOT NULL,
+    ruc VARCHAR(255) NOT NULL,
+    contract_number VARCHAR(255),
+    support_email VARCHAR(255),
+    support_pass VARCHAR(255),
+	status_comp tinyint(4) ,
+	status_train varchar(45),
+	time_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla Capacitaciones
+USE tandia;
+CREATE TABLE train (
+    train_id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT(4) ZEROFILL NOT NULL,
+    ruc VARCHAR(255) NOT NULL,
+    contract_number VARCHAR(255),
+    url_train VARCHAR(255),
+    date_train DATE,
+    hour_train TIME,
+    status_train varchar(45)
+);
+
+-- Tabla Seguimiento
+USE tandia;
+CREATE TABLE follow_up (
+    follow_up_id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT(4) ZEROFILL NOT NULL,
+    time_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla Detalle de Seguimiento
+USE tandia;
+CREATE TABLE detail_follow_up (
+    detail_follow_up_id INT AUTO_INCREMENT PRIMARY KEY,
+    follow_up_id INT,
+    ruc_follow_up VARCHAR(255) NOT NULL,
+    state_follow_up VARCHAR(255) NULL,
+    reason_follow_up VARCHAR(255) NULL,
+    detail_follow_up VARCHAR(255) NULL
+);
+
+-- Tabla Contacto de Seguimiento
+USE tandia;
+CREATE TABLE contact_follow_up (
+    call_follow_up_id INT AUTO_INCREMENT PRIMARY KEY,
+    detail_follow_up_id INT,
+    type_contact VARCHAR(255),
+    comment_contact VARCHAR(255),
+	time_contact TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla Seguimiento
+USE tandia;
+CREATE TABLE monthlySupport (
+    monthlySupport_id INT AUTO_INCREMENT PRIMARY KEY,
+	monthly_mm VARCHAR(255),
+    year_yy VARCHAR(255)
+);
+
+-- Tabla Detalle de Seguimiento
+USE tandia;
+CREATE TABLE detail_monthly_support (
+    detail_monthly_s_id INT AUTO_INCREMENT PRIMARY KEY,
+    monthlySupport_id INT,
+    contract_number INT,
+	user_id INT(4) ZEROFILL NOT NULL,
+    problem VARCHAR(255),
+    status_case VARCHAR(50),
+	module VARCHAR(50),
+    derived VARCHAR(50),
+    ticket VARCHAR(50),
+    commentry TEXT,
+    start_time TIME,
+    time_derivative TIME,
+    end_time TIME
+);
+
+
+
+
+
+-- YA
 
 -- Tabla VentaEquipo
 USE tandiagestion;
@@ -294,37 +326,5 @@ INSERT INTO Extra (
     ''
     );
 
--- Tabla Implementación
-USE tandiagestion;
-CREATE TABLE Implementacion (
-    IdImplementacion INT AUTO_INCREMENT PRIMARY KEY,
-    Ruc VARCHAR(15) NOT NULL,
-    Contrato VARCHAR(10),
-    ClaveSolB BOOLEAN,
-    ClaveSol VARCHAR(50),
-    ContraseniaSol VARCHAR(50),
-    NombreComercial VARCHAR(100),
-    DireccionE VARCHAR(250),
-    NroTelefonoE VARCHAR(15),
-    EmailE VARCHAR(100),
-    Impuesto VARCHAR(50),
-    UsuarioSec VARCHAR(20),
-    ContraseniaSec VARCHAR(20),
-    LinkCD VARCHAR(500),
-    ContraseniaCD VARCHAR(20),
-    VencimientoCD DATE,
-    ClaveGR VARCHAR(100),
-    IdGR VARCHAR(100)
-);
-
--- Tabla Compañia
-USE tandiagestion;
-CREATE TABLE Compañia (
-    CompanyId INT AUTO_INCREMENT PRIMARY KEY,
-    RUC VARCHAR(15) NOT NULL,
-    Contrato VARCHAR(10),
-    EmailSoporte VARCHAR(100),
-    ContraseniaSoporte VARCHAR(50)
-);
 
 

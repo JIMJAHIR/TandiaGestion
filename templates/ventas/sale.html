@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{{ url_for('static', filename='images/tandia_icon.png') }}" type="image/x-icon">
   <title>Lista de Clientes</title>
 </head>
 
@@ -16,8 +17,8 @@
       <button type="submit">Buscar</button>
     </form>
   
-    <form id="add-customer-form" method="POST" action="/">
-      <button type="submit"><i class="fa-solid fa-plus"></i>Agregar Cliente</button>
+    <form id="add-customer-form" action="/newSale">
+      <button type="submit"><i class="fa-solid fa-plus"></i> Agregar Cliente</button>
     </form>
   </div>
 
@@ -36,7 +37,6 @@
           <th>I. Contrato</th>
           <th>F. Contrato</th>
           <th>FE</th>
-          <th>Estado</th>
           <th>US</th>
           <th>Contraseña</th>
           <th>Link CD</th>
@@ -47,23 +47,22 @@
       <tbody>
         {% for cliente in lista_clientes %}
         <tr>
-          <td>{{ cliente[38] }}</td>
-          <td>{{ cliente[4] }}</td>
+          <td>{{ cliente[40] }}</td>
+          <td>{{ cliente[3] }}</td>
           <td>{{ cliente[5] }}</td>
-          <td>{{ cliente[17] }}</td>
-          <td>{{ cliente[19] }}</td>
-          <td>{{ cliente[21] }}</td>
-          <td>{{ cliente[57] }}</td>
+          <td>{{ cliente[16] }}</td>
+          <td>{{ cliente[18] }}</td>
+          <td>{{ cliente[20] }}</td>
           <td>{{ cliente[58] }}</td>
-          <td>{{ cliente[30] }}</td>
-          <td>{{ cliente[31] }}</td>
-          <td>{{ cliente[23] }}</td>
           <td>{{ cliente[59] }}</td>
-          <td>{{ cliente[47] }}</td>
-          <td>{{ cliente[48] }}</td>
+          <td>{{ cliente[31] }}</td>
+          <td>{{ cliente[32] }}</td>
+          <td>{{ cliente[23] }}</td>
           <td>{{ cliente[49] }}</td>
           <td>{{ cliente[50] }}</td>
           <td>{{ cliente[51] }}</td>
+          <td>{{ cliente[52] }}</td>
+          <td>{{ cliente[53] }}</td>
           {% endfor %}
       </tbody>
     </table>
