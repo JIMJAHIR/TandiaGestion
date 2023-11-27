@@ -9,10 +9,10 @@
 </head>
 
 <body>
-  {% include 'operaciones/headerSupport.html' %}
+  {% include 'cobranzas/headerCollection.html' %}
 
   <div class="header">
-    <form id="search-form" method="POST" action="/searchSupport">
+    <form id="search-form" method="POST" action="/searchCollections">
       <input type="text" id="search-input" name="contract_number" placeholder="Buscar por Contrato...">
       <button type="submit">Buscar</button>
     </form>
@@ -273,10 +273,7 @@
 
 
 
-
-
-
-  {% include 'operaciones/footer.html' %}
+  {% include 'cobranzas/footer.html' %}
 </body>
 
 </html>

@@ -1,11 +1,10 @@
-// Obtén referencias a los campos de entrada y al botón de envío
+// Obtén referencias a los campos de entrada y al botón de envío 
 const ruc = document.getElementById('ruc');
 const validationMessage = document.getElementById('ruc-validation-message');
 const submit_implementation = document.getElementById('submit_implementation');
 
 // Agrega un evento de escucha para cada campo de entrada
 ruc.addEventListener('input', validateForm);
-comercial_email.addEventListener('input', validateForm);
 
 async function validateForm() {
   const rucValue = ruc.value;
@@ -30,14 +29,11 @@ async function validateForm() {
   } else {
     validationMessage.textContent = 'Longitud Mínima 11 caracteres*';
     validationMessage.style.paddingTop = '5px'
+    rucValid = false;
   }
 
-  if (rucValid) {
-    submit_implementation.disabled = false;
-    submit_implementation.style.backgroundColor = 'rgba(37, 99, 235)';
-  } else {
-    submit_implementation.disabled = true;
-  }
+  submit_implementation.disabled = !rucValid;
+  submit_implementation.style.backgroundColor = rucValid ? 'rgba(37, 99, 235)' : '#ccc';
 }
 
 async function validar_registro(ruc) {

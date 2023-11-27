@@ -146,7 +146,7 @@ CREATE TABLE contact_follow_up (
 	time_contact TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla Seguimiento
+-- Tabla Soporte Mensual
 USE tandia;
 CREATE TABLE monthlySupport (
     monthlySupport_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -154,10 +154,10 @@ CREATE TABLE monthlySupport (
     year_yy VARCHAR(255)
 );
 
--- Tabla Detalle de Seguimiento
+-- Tabla Detalle de Soporte Mensual
 USE tandia;
 CREATE TABLE detail_monthly_support (
-    detail_monthly_s_id INT AUTO_INCREMENT PRIMARY KEY,
+    detail_monthly_id INT AUTO_INCREMENT PRIMARY KEY,
     monthlySupport_id INT,
     contract_number INT,
 	user_id INT(4) ZEROFILL NOT NULL,
@@ -167,52 +167,85 @@ CREATE TABLE detail_monthly_support (
     derived VARCHAR(50),
     ticket VARCHAR(50),
     commentry TEXT,
-    start_time TIME,
-    time_derivative TIME,
-    end_time TIME
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    time_derivative TIMESTAMP NULL DEFAULT NULL,
+    end_time TIMESTAMP NULL DEFAULT NULL
 );
 
+-- Tabla Contacto de Soporte
+USE tandia;
+CREATE TABLE contact_support (
+    call_support_id INT AUTO_INCREMENT PRIMARY KEY,
+    detail_support_id INT,
+    type_contact VARCHAR(255),
+    comment_contact VARCHAR(255),
+	time_contact TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
+-- Tabla Seguimiento
+USE tandia;
+CREATE TABLE collection_monthly (
+    collection_monthly_id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT(4) ZEROFILL NOT NULL,
+    time_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
+-- Tabla Detalle de collection_monthly
+USE tandia;
+CREATE TABLE detail_collection_monthly (
+    detail_collection_monthly_id INT AUTO_INCREMENT PRIMARY KEY,
+    collection_monthly_id INT,
+    ruc_collection_monthly VARCHAR(255) NOT NULL,
+    state_collection_monthly VARCHAR(255) NULL
+);
 
-
+-- Tabla Contacto de collection_monthly
+USE tandia;
+CREATE TABLE contact_collection (
+    call_support_id INT AUTO_INCREMENT PRIMARY KEY,
+    detail_collection_id INT,
+    type_contact VARCHAR(255),
+    comment_contact VARCHAR(255),
+	time_contact TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 -- YA
 
 -- Tabla VentaEquipo
-USE tandiagestion;
+USE tandia;
 CREATE TABLE VentaEquipo (
     IdVentaE INT AUTO_INCREMENT PRIMARY KEY,
-    EjecutivoComercial VARCHAR(50),
-    Ruc VARCHAR(15),
-    Motivo VARCHAR(100),
-    FechaPago DATE,
-    PagoInicial DECIMAL(10, 2),
-    PagoTotal DECIMAL(10, 2),
-    NroFacturaE VARCHAR(20),
-    Departamento VARCHAR(50),
-    Provincia VARCHAR(50),
-    Distrito VARCHAR(50),
-    DireccionEntrega VARCHAR(250),
-    Referencia VARCHAR(250),
-    LinkDireccion VARCHAR(250),
-    DniRecibe VARCHAR(15),
-    NombresRecibe VARCHAR(100),
-    NumeroRecibe VARCHAR(15),
-    MedioEnvio VARCHAR(50),
-    Delivery BOOLEAN,
-    PagoDelivery DECIMAL(10, 2),
-    NroFacturaDelivery VARCHAR(20),
-    FechaEnvio DATE,
-    ResponsableEnvio VARCHAR(100),
-    Comentarios TEXT,
+    user_id  INT(4) ZEROFILL NOT NULL,
+    ruc VARCHAR(15),
+    motivoE VARCHAR(100),
+    datePagoE DATE,
+    initialE DECIMAL(10, 2),
+    totalE DECIMAL(10, 2),
+    nroFacE VARCHAR(20),
+    departamentoE VARCHAR(50),
+    provinciaE VARCHAR(50),
+    distritoE VARCHAR(50),
+    dirE VARCHAR(250),
+    reference VARCHAR(250),
+    linkUbication VARCHAR(250),
+    nroDocE VARCHAR(15),
+    namesE VARCHAR(100),
+    nroCelE VARCHAR(15),
+    typeE VARCHAR(50),
+    delivery BOOLEAN,
+    amountE DECIMAL(10, 2),
+    nroFacD VARCHAR(20),
+    dateE DATE,
+    responsableE VARCHAR(100),
+    comentaryE TEXT,
     TipoVenta VARCHAR(50),
     Estado  VARCHAR(50)
 );
 
+USE tandia;
 CREATE TABLE EquipoVendido (
     IdEquipoV INT AUTO_INCREMENT PRIMARY KEY,
-    NombreEquipo VARCHAR(100) NOT NULL,
-    Cantidad INT NOT NULL,
+    nameE VARCHAR(100) NOT NULL,
+    quantityE INT NOT NULL,
     idVentaE INT NOT NULL,
     FOREIGN KEY (idVentaE) REFERENCES VentaEquipo(IdVentaE)
 );
@@ -282,20 +315,21 @@ INSERT INTO EquipoVendido (NombreEquipo, Cantidad, idVentaE) VALUES
     ('Producto 2', 3, @idVenta);
 
 -- Tabla Extra
-USE tandiagestion;
+USE tandia;
 CREATE TABLE Extra (
     IdExtra INT AUTO_INCREMENT PRIMARY KEY,
-    EjecutivoComercial VARCHAR(100),
-    Ruc VARCHAR(15),
-    Motivo VARCHAR(15),
-    Monto DECIMAL(10, 2),
-    NroFactura VARCHAR(20),
-    FechaPago DATE,
-    Comentarios TEXT,
-    TipoExtra VARCHAR(15),
-    EstadoUpgrade VARCHAR(15),
-    EstadoCapacitacion VARCHAR(15),
-    EstadoCd VARCHAR(15)
+    user_id  INT(4) ZEROFILL NOT NULL,
+    ruc_extra VARCHAR(15),
+    contract_extra VARCHAR(15),
+    reason_extra VARCHAR(15),
+    amount_extra DECIMAL(10, 2),
+    nro_fac_extra VARCHAR(20),
+    pay_day_extra DATE,
+    nro_doc_extra VARCHAR(15),
+    name_extra VARCHAR(15),
+    num_client_extra VARCHAR(15),
+    commentry_extra VARCHAR(15),
+    type_extra VARCHAR(15)
 );
 
 -- Insertar un registro en la tabla Extra

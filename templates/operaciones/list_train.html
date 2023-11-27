@@ -12,11 +12,11 @@
   {% include 'operaciones/headerSupport.html' %}
 
   <div class="header">
-    <form id="search-form" method="POST" action="/follow_up">
+    <!--<form id="search-form" method="POST" action="/follow_up">
       <input type="text" id="search-input" name="ruc" placeholder="Buscar por RUC...">
       <button type="submit">Buscar</button>
-    </form>
-    <button type="button" class="newTrain" id="newTrain">Agendar Capacitación</button>
+    </form>-->
+    <button type="button" class="buttom_header newTrain" id="newTrain">Agendar Capacitación</button>
   </div>
 
   <div class="table-container">
@@ -25,13 +25,13 @@
       <thead>
         <tr>
           <th style="display:none;">ID</th>
-          <th>Ruc</th>
-          <th>Contrato</th>
-          <th>Responsable</th>
-          <th>Enlace</th>
-          <th>Día</th>
-          <th>Hora</th>
-          <th>Estado</th>
+          <th>RUC</th>
+          <th>CONTRATO</th>
+          <th>RESPONSABLE</th>
+          <th>ENLACE</th>
+          <th>DÍA</th>
+          <th>HORA</th>
+          <th>ESTADO</th>
         </tr>
       </thead>
       <tbody>
@@ -42,15 +42,18 @@
           <td>{{ train[3] }}</td>
           <td>{{ train[4] }}</td>
           <td>{{ train[12] }}</td>
-          <td>{{ train[5] }}</td>
+          <td><a href="{{train[5]}}" target="_blank"> Ir... </a> </td>
           <td>{{ train[6] }}</td>
           <td>{{ train[7] }}</td>
 
           {% if train[8] == 'AGENDADA' %}
-          <td><a class="act-button orange-proces"> EN PROCESO </a></td>
+          <td><a class="act-button orange-proces"> AGENDADA </a></td>
+          {% elif train[8] == 'NO REALIZADA' %}
+          <td><a class="red-false"> NO REALIZADA </a></td>
           {% else %}
           <td class="green-true"> FINALIZADO </td>
           {% endif %}
+
 
 
 
@@ -75,23 +78,34 @@
       <form method="post" action="/acceptTrain" autocomplete="off">
         <input type="hidden" id="ruc" name="ruc" value="">
         <input type="hidden" id="train_id" name="train_id" value="">
-        <button type="submit" class="styled-input styled-accept-popUp" id="confirm-accept">Aceptar</button>
-      </form>
 
-      <button class="styled-input styled-cancel-popUp" id="confirm-cancel">Cancelar</button>
+        <div class="radio">
+          <label for="activo_si">
+            <input type="radio" id="activo_si" name="activo" value="SI" required> Sí
+          </label>
+          <label for="activo_no">
+            <input type="radio" id="activo_no" name="activo" value="NO" required> No
+          </label>
+        </div>
+
+        <button type="submit" class="styled-input styled-accept-popUp" id="confirm-accept">Aceptar</button>
+        <button class="styled-input styled-cancel-popUp" id="confirm-cancel">Cancelar</button>
+      </form>
     </div>
   </div>
 
   <div id="popup" class="popup">
     <div class="popup-content">
       <span class="close-button" id="close-popup">&times;</span>
-      <h2>Capacitación</h2>
+      <h2>Agendar Capacitación</h2>
 
       <form method="post" action="/newTrain" autocomplete="off">
 
         <div class="input-container">
-          <label class="label-overlay" for="ruc">Ruc</label>
-          <input class="styled-input" type="text" name="ruc" id="ruc" required>
+          <label class="label-overlay" for="rucN">Ruc</label>
+          <input class="styled-input" type="text" name="rucN" id="rucN" required>
+          <span class="ruc-validation-message" id="ruc-validation-message"></span>
+
         </div>
         <div class="input-container">
           <label class="label-overlay" for="contract_number">Contrato</label>
@@ -122,7 +136,7 @@
             {% endfor %}
           </select>
         </div>
-        <button class="styled-input styled-button-popUp" type="submit" id="registrar-button">Registrar</button>
+        <button class="styled-input styled-button_imp" type="submit" id="registrar-button" disabled>Registrar</button>
 
       </form>
     </div>
@@ -135,7 +149,7 @@
     const confirmAcceptButton = document.getElementById('confirm-accept');
     const confirmCancelButton = document.getElementById('confirm-cancel');
     const trainIdInput = document.getElementById('train_id');
-    const rucInput = document.getElementById('ruc');
+    const rucInput = document.getElementById('rucN');
 
     actButton.forEach(button => {
       button.addEventListener('click', () => {
@@ -150,8 +164,77 @@
     });
 
     confirmCancelButton.addEventListener('click', () => {
+      event.preventDefault();
       actPopup.style.display = 'none';
     });
+
+    // Validar RUC
+    const ruc = document.getElementById('rucN');
+    const registrar_button = document.getElementById('registrar-button');
+    const validationMessage = document.getElementById('ruc-validation-message');
+
+    ruc.addEventListener('input', validateForm);
+    let rucValid = false;
+
+    async function validateForm() {
+      const rucValue = ruc.value;
+
+      if (rucValue.length >= 11) {
+        const client_exists = await validar_client(rucValue);
+
+        if (client_exists) {
+          validationMessage.textContent = '';
+          validationMessage.style.paddingTop = '5px';
+          rucValid = true;
+          document.getElementById('rucN').addEventListener('change', consultarRuc);
+        } else {
+          validationMessage.textContent = 'No existe un cliente con el RUC ingresado*';
+          rucValid = false;
+        }
+      } else {
+        validationMessage.textContent = 'Longitud Mínima 11 caracteres*';
+        validationMessage.style.paddingTop = '5px';
+        rucValid = false;
+      }
+
+      registrar_button.disabled = !rucValid;
+      registrar_button.style.backgroundColor = rucValid ? 'rgba(37, 99, 235)' : '#ccc';
+    }
+
+    async function validar_client(ruc) {
+      try {
+        const response = await fetch(`/validar_client?ruc=${ruc}`);
+        const data = await response.json();
+        return data.exists;
+      } catch (error) {
+        console.error('Error during validation:', error);
+        return false; // Tratar el error como que el cliente no existe
+      }
+    }
+
+    function consultarRuc() {
+      var ruc = document.getElementById('rucN').value;
+      var contractNumberInput = document.getElementById('contract_number');
+
+      if (ruc.trim() !== '') {
+        fetch('/buscar_contrato?ruc=' + ruc)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.text();
+          })
+          .then(contratoEncontrado => {
+            if (contratoEncontrado.trim() !== '') {
+              contractNumberInput.value = contratoEncontrado;
+            }
+          })
+          .catch(error => {
+            console.error('Error during fetch:', error);
+            alert('Hubo un problema al realizar la consulta del RUC.');
+          });
+      }
+    }
   </script>
 
   <script>

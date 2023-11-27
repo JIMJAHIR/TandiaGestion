@@ -5,6 +5,7 @@ import mysql.connector
 from cnx import DB_CONFIG
 from app.operaciones import operaciones_bp
 from app.ventas import ventas_bp
+from app.cobranzas import cobranzas_bp
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta'
@@ -12,6 +13,7 @@ app.secret_key = 'tu_clave_secreta'
 # Registra el Blueprint 'operaciones_bp' en tu aplicación
 app.register_blueprint(operaciones_bp)
 app.register_blueprint(ventas_bp)
+app.register_blueprint(cobranzas_bp)
 
 # Definición de filtro personalizado
 def b64encode_filter(value):
@@ -63,6 +65,8 @@ def loginUser():
                 return redirect(url_for('operaciones.support'))
             elif user_area == 'COMERCIAL':
                 return redirect(url_for('ventas.sale'))
+            elif user_area == 'COBRANZAS':
+                return redirect(url_for('cobranzas.collections'))
             else:
                 # Manejar otros roles aquí si es necesario
                 pass

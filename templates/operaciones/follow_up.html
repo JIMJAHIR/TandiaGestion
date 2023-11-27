@@ -12,9 +12,9 @@
   {% include 'operaciones/headerSupport.html' %}
 
   <div class="header">
-    <form id="search-form" method="POST" action="/follow_up">
+    <!--<form id="search-form" method="POST" action="/follow_up">
       <input type="text" id="search-input" name="ruc" placeholder="Buscar por RUC...">
-      <button type="submit">Buscar</button>
+      <button type="submit">Buscar</button>-->
     </form>
   </div>
 
@@ -22,15 +22,15 @@
     <table class="clientes">
       <thead>
         <tr>
-          <th>Contrato</th>
-          <th>Ruc</th>
-          <th>Responsable</th>
-          <th>Correo</th>
-          <th>Numero</th>
-          <th>Correo Soporte</th>
-          <th>Contraseña Soporte</th>
-          <th>Capacitación</th>
-          <th>Estado</th>
+          <th>CONTRATO</th>
+          <th>RUC</th>
+          <th>RESPONSABLE</th>
+          <th>CORREO</th>
+          <th>NUMERO</th>
+          <th>CORREO SOPORTE</th>
+          <th>CONTRASEÑA SOPORTE</th>
+          <th>CAPACITACIÓN</th>
+          <th>ESTADO</th>
         </tr>
       </thead>
       <tbody>
@@ -61,11 +61,14 @@
           {% endif %}
           {% endif %}
 
-          {% if cliente[43] == 0 %}
-          <td> <a class="act-button red-false">NO ACTIVO</a></td>
+          {% if cliente[43] == none %}
+          <td class="act-button red-false"> INACTIVO </td>
+          {% elif cliente[43] == 'ACTIVO' %}
+          <td class="green-true"> ACTIVO </td>
           {% else %}
-          <td class="green-true">ACTIVO</td>
+          <td class="act-button red-false"> DADO DE BAJA </td>
           {% endif %}
+
         </tr>
         {% endfor %}
 
@@ -85,7 +88,7 @@
       <span class="close-button" id="close-popup">&times;</span>
       <h2>Capacitación</h2>
 
-      <form method="post" action="/newTrain" autocomplete="off">
+      <form method="post" action="/newFirstTrain" autocomplete="off">
 
         <div class="input-container">
           <label class="label-overlay" for="ruc">Ruc</label>
@@ -128,15 +131,14 @@
 
   <div id="act-popup" class="popup">
     <div class="popup-content">
-      <h2>Confirmación</h2>
-      <p>¿CLIENTE ACTIVO?</p>
+      <h2>Cliente Activo</h2>
+      <p>¿El cliente usa Tandia?</p>
 
       <form method="post" action="/activeCompany" autocomplete="off">
         <input type="hidden" id="ruc_C" name="ruc_C" value="">
         <button type="submit" class="styled-input styled-accept-popUp" id="confirm-accept">Aceptar</button>
+        <button class="styled-input styled-cancel-popUp" id="confirm-cancel">Cancelar</button>
       </form>
-
-      <button class="styled-input styled-cancel-popUp" id="confirm-cancel">Cancelar</button>
     </div>
   </div>
 

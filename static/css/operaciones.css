@@ -42,6 +42,14 @@ color: rgb(37, 99, 200);
 text-align: center;
 }
 
+.popup-content p{
+  text-align: center;
+}
+
+.radio{
+  text-align: center;
+}
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -63,6 +71,25 @@ text-align: center;
 .styled-accept-popUp{
   cursor: pointer;
   width: 40%;
+  border: none;
+  margin-top: 7.5px;
+  background-color: rgb(37, 99, 200);
+  color: rgb(255, 255, 255);
+}
+
+.styled-accept{
+  cursor: pointer;
+  width: 40%;
+  border: none;
+  margin-top: 7.5px;
+  background-color: rgb(189, 195, 199 );
+  color: rgb(255, 255, 255);
+}
+
+
+.styled-accept-popUp2{
+  cursor: pointer;
+  width: 95%;
   border: none;
   margin-top: 7.5px;
   background-color: rgb(37, 99, 200);

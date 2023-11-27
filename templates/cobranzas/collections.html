@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 
 <head>
   <meta charset="UTF-8">
@@ -9,10 +9,10 @@
 </head>
 
 <body>
-  {% include 'operaciones/headerSupport.html' %}
+  {% include 'cobranzas/headerCollection.html' %}
 
   <div class="header">
-    <form id="search-form" method="POST" action="/support">
+    <form id="search-form" method="POST" action="/collections">
       <input type="text" id="search-input" name="ruc" placeholder="Buscar por RUC...">
       <button type="submit">Buscar</button>
     </form>
@@ -97,7 +97,7 @@
           {% if cliente[51] == none %}
           <td> - </td>
           {% else %}
-          <td><a href="{{cliente[51]}}" target="_blank"> DESCARGAR </a></td>
+          <td>{{ cliente[51] }}</td>
           {% endif %}
 
           {% if cliente[52] == none %}
@@ -124,7 +124,7 @@
     </div>
   </div>
 
-  {% include 'operaciones/footer.html' %}
+  {% include 'cobranzas/footer.html' %}
 </body>
 
 </html>

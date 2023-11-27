@@ -13,8 +13,7 @@
 
   <div class="conteiner-new">
 
-    <form method="post" action="{{ url_for('ventas.newSaleE')}}" autocomplete="off">
-
+    <form method="post" action="{{ url_for('ventas.newSale')}}" id="ventaEquipoForm" autocomplete="off">
       <div class="inf-conteiner-newClient">
 
         <div class="titulo-newCliente">
@@ -37,18 +36,42 @@
           </div>
 
           <div class="newInput-container">
+            <label class="label-overlay">Nro de Contrato</label>
+            <input class="styled-input" type="text" id="contratoE" name="contratoE" placeholder="Nro de Contrato"
+              required>
+          </div>
+
+          <div class="newInput-container">
+            <label class="label-overlay">Equipo</label>
+            <select class="styled-input" name="nameE">
+              <option value="Impresora Azul Alámbrica">Impresora Azul Alámbrica</option>
+              <option value="Impresora Portátil">Impresora Portátil</option>
+              <option value="Impresora de 80 MM">Impresora de 80 MM</option>
+              <option value="Lector de Barras Alámbrico">Lector de Barras Alámbrico</option>
+              <option value="Lector de Barras Inalámbrico">Lector de Barras Inalámbrico</option>
+              <option value="Gaveta de Dinero">Gaveta de Dinero</option>
+              <option value="V2 - T-Portátil">V2 - T-Portátil</option>
+              <option value="Lector Sunmi - 2">Lector Sunmi - 2</option>
+              <option value="Impresora de Código de Barras">Impresora de Código de Barras</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+
+          <div class="newInput-container">
+            <label class="label-overlay">Cantidad</label>
+            <input class="styled-input" type="number" id="quantityE" name="quantityE" value="1" min="1" max="10"
+              step="1" required>
+          </div>
+
+          <div class="newInput-container">
             <label class="label-overlay">Fecha de Pago</label>
             <input class="styled-input" type="date" id="datePagoE" name="datePagoE" required>
           </div>
         </div>
 
-        <div id="productosContainer">
-          <!-- Aquí se añadirán dinámicamente los campos de productos -->
-        </div>
-
         <div class="conteiner-infoNewClient conteiner-infoNewClient-five">
           <div class="button-Colum3">
-            <button class="styled-input styled-button" type="button" onclick="agregarProducto()">Agregar Equipo</button>
+            <button class="styled-input styled-button" type="button" onclick="addEquipment()">Agregar Equipo</button>
           </div>
         </div>
 
@@ -208,9 +231,7 @@
 
         <div class="conteiner-infoNewClient conteiner-infoNewClient-five">
           <div class="button-Colum3">
-            <input type="hidden" name="productoCounter" id="productoCounter" value="{{ productoCounter }}">
-
-            <button class="styled-input styled-button" type="submit">Registrar Equipo</button>
+            <button class="styled-input styled-button" type="button" onclick="submitForm()">Registrar Equipo</button>
           </div>
         </div>
 
@@ -219,61 +240,7 @@
 
   </div>
 
-  <script>
-    let productoCounter = 0;
-
-    function agregarProducto() {
-      productoCounter++;
-
-      const container = document.getElementById('productosContainer');
-
-      const newInputContainer = document.createElement('div');
-      newInputContainer.classList.add('conteiner-infoNewClient', 'conteiner-infoNewClient-three');
-      newInputContainer.id = `producto${productoCounter}`;
-
-      newInputContainer.innerHTML = `
-            <div class="newInput-container">
-                <label for="nameE${productoCounter}" class="label-overlay">Equipo</label>
-                <select class="styled-input" name="nameE${productoCounter}">
-                    <option value="Impresora Azul Alámbrica">Impresora Azul Alámbrica</option>
-                    <option value="Impresora Portátil">Impresora Portátil</option>
-                    <option value="Impresora de 80 MM">Impresora de 80 MM</option>
-                    <option value="Lector de Barras Alámbrico">Lector de Barras Alámbrico</option>
-                    <option value="Lector de Barras Inalámbrico">Lector de Barras Inalámbrico</option>
-                    <option value="Gaveta de Dinero">Gaveta de Dinero</option>
-                    <option value="V2 - T-Portátil">V2 - T-Portátil</option>
-                    <option value="Lector Sunmi - 2">Lector Sunmi - 2</option>
-                    <option value="Impresora de Código de Barras">Impresora de Código de Barras</option>
-                    <option value="Otros">Otros</option>
-                </select>
-            </div>
-
-            <div class="newInput-container">
-                <label for="quantityE${productoCounter}" class="label-overlay">Cantidad</label>
-                <input class="styled-input" type="number" name="quantityE${productoCounter}" value="1" min="1" max="10" step="1" required>
-            </div>
-
-            <div class="newInput-container">
-                <button type="button" class="styled-input remove-button" onclick="eliminarProducto(${productoCounter})">Quitar</button>
-            </div>
-        `;
-
-      container.appendChild(newInputContainer);
-      // Actualizar el valor del campo oculto productoCounter
-      document.getElementById('productoCounter').value = productoCounter;
-    }
-
-    function eliminarProducto(id) {
-      const container = document.getElementById('productosContainer');
-      const productoDiv = document.getElementById(`producto${id}`);
-      container.removeChild(productoDiv);
-    }
-
-  </script>
-
-
-
-
+  
   {% include 'ventas/footer.html' %}
 </body>
 
