@@ -69,6 +69,8 @@
           <label class="label-overlay">Numero del Cliente</label>
           <span class="styled-input">+51 {{cliente[0].10}}</span>
         </div>
+
+        {% if cliente[0].11 != '' %}
         <div class="input-container">
           <label class="label-overlay">Nombre del Encargado de Implementación</label>
           <span class="styled-input">{{cliente[0].11}}</span>
@@ -81,6 +83,7 @@
           <label class="label-overlay">Numero del Encargado de Implementación</label>
           <span class="styled-input">{{cliente[0].13}}</span>
         </div>
+        {% endif%}
       </div>
     </div>
 
@@ -125,18 +128,40 @@
           <label class="label-overlay">Fin</label>
           <span class="styled-input">{{cliente[0].22}}</span>
         </div>
-        <div class="input-container">
+        <div class="input-container input-container2">
           <label class="label-overlay">FE</label>
-          <span class="styled-input">{{cliente[0].23}}</span>
+          <span class="styled-input">
+            {% if cliente[0].23 == 1 %}
+            Sí
+            {% else %}
+            No
+            {% endif %}
+          </span>
         </div>
-        <div class="input-container">
+
+        <div class="input-container input-container2">
           <label class="label-overlay">Guias de Remisión</label>
-          <span class="styled-input">{{cliente[0].24}}</span>
+          <span class="styled-input">
+            {% if cliente[0].24 == 1 %}
+            Sí
+            {% else %}
+            No
+            {% endif %}
+          </span>
         </div>
-        <div class="input-container">
+
+
+        <div class="input-container input-container2">
           <label class="label-overlay">Debe</label>
           <span class="styled-input">{{cliente[0].25}}</span>
         </div>
+        <div class="input-container input-container2">
+          <label class="label-overlay">Contrato</label>
+          <button class="styled-input" type="submit" id="submit_implementation" disabled><a href="{{cliente[0].26}}"
+              target="_blank">Descargar</a></button>
+        </div>
+
+
       </div>
     </div>
 
@@ -147,58 +172,59 @@
       <div class="conteiner-infoClient">
         <div class="input-container">
           <label class="label-overlay">Correo de Soporte</label>
-          <span class="styled-input">{{cliente[0].26}}</span>
-        </div>
-        <div class="input-container">
-          <label class="label-overlay">Contraseña de soporte</label>
           <span class="styled-input">{{cliente[0].27}}</span>
         </div>
         <div class="input-container">
-          <label class="label-overlay">Dirección Fiscal</label>
+          <label class="label-overlay">Contraseña de soporte</label>
           <span class="styled-input">{{cliente[0].28}}</span>
         </div>
         <div class="input-container">
-          <label class="label-overlay">Telefono</label>
+          <label class="label-overlay">Dirección Fiscal</label>
           <span class="styled-input">{{cliente[0].29}}</span>
         </div>
         <div class="input-container">
-          <label class="label-overlay">Correo</label>
+          <label class="label-overlay">Telefono</label>
           <span class="styled-input">{{cliente[0].30}}</span>
         </div>
         <div class="input-container">
-          <label class="label-overlay">Tipo de Impuesto</label>
+          <label class="label-overlay">Correo</label>
           <span class="styled-input">{{cliente[0].31}}</span>
         </div>
         <div class="input-container">
-          <label class="label-overlay">Certificado Digital</label>
+          <label class="label-overlay">Tipo de Impuesto</label>
           <span class="styled-input">{{cliente[0].32}}</span>
         </div>
         <div class="input-container">
+          <label class="label-overlay">Certificado Digital</label>
+          <button class="styled-input" type="submit" id="submit_implementation" disabled><a href="{{cliente[0].33}}"
+            target="_blank">Descargar</a></button>
+        </div>
+        <div class="input-container">
           <label class="label-overlay">Contraseña Certificado</label>
-          <span class="styled-input">{{cliente[0].33}}</span>
+          <span class="styled-input">{{cliente[0].34}}</span>
         </div>
         <div class="input-container">
           <label class="label-overlay">Vencimiento CD</label>
-          <span class="styled-input">{{cliente[0].34}}</span>
+          <span class="styled-input">{{cliente[0].35}}</span>
         </div>
         {% if cliente[0].24 == True %}
         <div class="input-container">
           <label class="label-overlay">Clave Guias de Remision</label>
-          <span class="styled-input">{{cliente[0].35}}</span>
+          <span class="styled-input">{{cliente[0].36}}</span>
         </div>
         <div class="input-container">
           <label class="label-overlay">Id Clave Guias de Remision</label>
-          <span class="styled-input">{{cliente[0].36}}</span>
+          <span class="styled-input">{{cliente[0].37}}</span>
         </div>
         {% endif %}
-        {% if cliente[0].37 == True %}
+        {% if cliente[0].38 == True %}
         <div class="input-container">
           <label class="label-overlay">Clave Sol</label>
-          <span class="styled-input">{{cliente[0].38}}</span>
+          <span class="styled-input">{{cliente[0].39}}</span>
         </div>
         <div class="input-container">
           <label class="label-overlay">Contraseña Clave Sol</label>
-          <span class="styled-input">{{cliente[0].39}}</span>
+          <span class="styled-input">{{cliente[0].40}}</span>
         </div>
         {% endif %}
       </div>
@@ -211,15 +237,15 @@
       <div class="conteiner-infoClient conteiner-infoClient2">
         <div class="input-container">
           <label class="label-overlay">Area</label>
-          <span class="styled-input">---</span>
+          <span class="styled-input">{{cliente[0].41}}</span>
         </div>
         <div class="input-container">
           <label class="label-overlay">Ejecutivo Comercial</label>
-          <span class="styled-input">---</span>
+          <span class="styled-input">{{cliente[0].42}}</span>
         </div>
         <div class="input-container">
           <label class="label-overlay">Nro Ejecutivo</label>
-          <span class="styled-input">+51</span>
+          <span class="styled-input">+51 {{cliente[0].43}}</span>
         </div>
       </div>
       <div class="titulo">
@@ -242,9 +268,11 @@
     </div>
   </div>
   {% else %}
-  <p>No se encontraron resultados.</p>
+  <p class="none_result">No se encontraron resultados  :(</p>
   {% endif %}
-  
+
+
+
   {% include 'ventas/footer.html' %}
 </body>
 

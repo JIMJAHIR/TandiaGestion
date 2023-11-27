@@ -277,6 +277,18 @@ footer {
   margin-top: 5%;
 }
 
+.buttom_header{
+  background-color: rgba(37, 99, 235);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 2.5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+}
+
 /* Estilos para los formularios - Search*/
 #search-form,
 #add-customer-form {
@@ -370,16 +382,19 @@ footer {
 }
 
 .green-true{
+  cursor: pointer;
   color: rgb(89, 210, 136);
   font-weight: 600;
 }
 
 .red-false{
+  cursor: pointer;
   color: rgb(255, 75, 75);
   font-weight: 600;
 }
 
 .orange-proces{
+  cursor: pointer;
   color: rgb(255, 150, 0);
   font-weight: 600;
 }
@@ -561,8 +576,9 @@ footer {
 
 .styled-button_imp {
   border: none;
+  width: 95%;
   margin-top: 7.5px;
-  background-color: rgb(67, 70, 138);
+  background-color: rgb(189, 195, 199 );
   color: rgb(255, 255, 255);
 }
 
@@ -574,6 +590,7 @@ footer {
 .remove-button {
   border: 1px solid rgb(255, 60, 60);
   margin-top: 5px;
+  margin-bottom: 10px;
   background-color: rgb(255, 60, 60);
   color: rgb(255, 255, 255);
   font-weight: 600;
@@ -592,6 +609,9 @@ footer {
   padding-left: 10px;
 }
 
+.none_result {
+margin-left: 35px;
+}
 /* ----------------------------- */
 
 /* conteiner new */

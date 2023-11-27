@@ -211,6 +211,29 @@ def list_follow_up():
     except mysql.connector.Error as e:
         print(f'Error al conectar a la base de datos: {e}')
         return None
+    
+def list_collection_monthly():
+    try:
+        # Establece la conexión a tu base de datos utilizando la configuración de DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Llama al procedimiento almacenado
+        cursor.callproc('list_collection_monthly')
+
+        # Recupera los resultados
+        for result in cursor.stored_results():
+            data = result.fetchall()
+
+        # Cierra el cursor y la conexión solo si se crearon con éxito
+        cursor.close()
+        conn.close()
+
+        return data
+
+    except mysql.connector.Error as e:
+        print(f'Error al conectar a la base de datos: {e}')
+        return None
 
 def list_monthly_support():
     try:
@@ -257,6 +280,27 @@ def detail_follow_up(id_follow):
         print(f'Error connecting to the database: {e}')
         return None
 
+def detail_collection(id_collection):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('detail_collection', [id_collection])
+
+        # Retrieve the results
+        for result in cursor.stored_results():
+            data = result.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return data
+
+    except mysql.connector.Error as e:
+        print(f'Error connecting to the database: {e}')
+        return None
 
 def detail_MonthlySupport(register_id):
     try:
@@ -301,6 +345,28 @@ def detail_followU(id_details):
     except mysql.connector.Error as e:
         print(f'Error connecting to the database: {e}')
         return None
+
+def details_collection(id_details):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('details_collection', [id_details])
+
+        # Retrieve the results
+        for result in cursor.stored_results():
+            data = result.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return data
+
+    except mysql.connector.Error as e:
+        print(f'Error connecting to the database: {e}')
+        return None
     
 def detail_contact(id_details):
     try:
@@ -324,6 +390,73 @@ def detail_contact(id_details):
         print(f'Error connecting to the database: {e}')
         return None
     
+def details_contact(id_details):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('details_contact', [id_details])
+
+        # Retrieve the results
+        for result in cursor.stored_results():
+            data = result.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return data
+
+    except mysql.connector.Error as e:
+        print(f'Error connecting to the database: {e}')
+        return None
+    
+def detail_Support(id_details):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('detail_Support', [id_details])
+
+        # Retrieve the results
+        for result in cursor.stored_results():
+            data = result.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return data
+
+    except mysql.connector.Error as e:
+        print(f'Error connecting to the database: {e}')
+        return None
+    
+def detail_contactS(id_details):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('detail_contactS', [id_details])
+
+        # Retrieve the results
+        for result in cursor.stored_results():
+            data = result.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return data
+
+    except mysql.connector.Error as e:
+        print(f'Error connecting to the database: {e}')
+        return None
+    
+
 def detail_follow_update(id_follow, ruc_E, state_follow_up, reason_follow_up,
                   detail_follow_up):
     try:
@@ -343,6 +476,25 @@ def detail_follow_update(id_follow, ruc_E, state_follow_up, reason_follow_up,
         # Handle any exceptions that might occur during the database operation
         print(f"Error in create_new_implementation: {str(e)}")
 
+
+def create_newAtention(register_id,ruc_support,contract_number,user_id,problem,module):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('create_newAtention', [register_id,ruc_support,contract_number,user_id,problem,module])
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    except Exception as e:
+        # Handle any exceptions that might occur during the database operation
+        print(f"Error in create_new_implementation: {str(e)}")
+
+
 def register_follow_contact(detail_id, type_contact, comment_contact):
     try:
         # Establish the database connection using DB_CONFIG
@@ -360,6 +512,39 @@ def register_follow_contact(detail_id, type_contact, comment_contact):
         # Handle any exceptions that might occur during the database operation
         print(f"Error in create_new_implementation: {str(e)}")
 
+def register_collection_contact(detail_id, type_contact, comment_contact):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('register_collection_contact', [detail_id, type_contact, comment_contact])
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    except Exception as e:
+        # Handle any exceptions that might occur during the database operation
+        print(f"Error in create_new_implementation: {str(e)}")
+
+def register_support_contact(detail_id, type_contact, comment_contact):
+    try:
+        # Establish the database connection using DB_CONFIG
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Call a stored procedure to retrieve filtered client data
+        cursor.callproc('register_support_contact', [detail_id, type_contact, comment_contact])
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    except Exception as e:
+        # Handle any exceptions that might occur during the database operation
+        print(f"Error in create_new_implementation: {str(e)}")
 
 
 def create_new_implementation(ruc, user_id,contract_number, pass_sun_boolean, pass_sun, pass_pass_sun, comercial_name, comercial_address, comercial_phone, comercial_email, taxes, secundary_user, pass_secundary_user, url_cd, pass_cd, expiration_cd, gr_pass, gr_id):

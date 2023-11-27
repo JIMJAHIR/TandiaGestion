@@ -23,41 +23,46 @@
     <table class="clientes">
       <thead>
         <tr>
-          <th>Contrato</th>
-          <th>Ruc</th>
-          <th>Plan</th>
-          <th>Tiendas a Configurar</th>
-          <th>Usuarios a Configurar</th>
-          <th>I. Contrato</th>
-          <th>F. Contrato</th>
+          <th>CONTRATO</th>
+          <th>RUC</th>
+          <th>PLAN</th>
+          <th>TIENDAS A CONFIGURAR</th>
+          <th>USUARIOS A CONFIGURAR</th>
+          <th>I. CONTRATO</th>
+          <th>F. CONTRATO</th>
           <th>FE</th>
-          <th>Buy CD</th>
-          <th>Guias</th>
-          <th>Estado</th>
-          <th>Compañia</th>
+          <th>BUY CD</th>
+          <th>GUIAS</th>
+          <th>ESTADO</th>
+          <th>COMPAÑIA</th>
         </tr>
       </thead>
       <tbody>
         {% for cliente in lista_clientes %}
         <tr>
+          {% if cliente[40] == none %}
+          <td> - </td>
+          {% else %}
           <td>{{ cliente[40] }}</td>
+          {% endif %}
+
           <td>{{ cliente[3] }}</td>
           <td>{{ cliente[16] }}</td>
           <td>{{ cliente[19] }}</td>
           <td>{{ cliente[21] }}</td>
           <td>{{ cliente[31] }}</td>
           <td>{{ cliente[32] }}</td>
-          {% if cliente[23] == 0 %}
+          {% if cliente[23] == 1 %}
           <td class="green-true"> Sí </td>
           {% else %}
           <td class="red-false"> NO </td>
           {% endif %}
-          {% if cliente[24] == 0 %}
+          {% if cliente[24] == 1 %}
           <td class="green-true"> Sí </td>
           {% else %}
           <td class="red-false"> NO </td>
           {% endif %}
-          {% if cliente[25] == 0 %}
+          {% if cliente[25] == 1 %}
           <td class="green-true"> Sí </td>
           {% else %}
           <td class="red-false"> NO </td>
@@ -72,7 +77,7 @@
           {% if cliente[36] == 'EN PROCESO' %}
           <td> <a class="registrar-button  green-true"> AGREGAR + </a></td> 
           {% else %}
-          <td> <a class="red-false"> POR INICIAR </a></td> 
+          <td> <a class="red-false"> PENDIENTE </a></td> 
           {% endif %}
           {% endfor %}
       </tbody>
@@ -111,8 +116,8 @@
           <label class="label-overlay" for="support_pas">Contraseña</label>
           <input class="styled-input" type="password" name="support_pass" id="support_pass" required>
         </div>
-        <button class="styled-input styled-button_popUp" type="submit" id="registrar-button">Registrar</button>
-
+        <button class="styled-input styled-accept-popUp2" type="submit" id="registrar-button">Registrar</button>
+  
       </form>
     </div>
   </div>
@@ -139,6 +144,7 @@
     });
 
     closePopupButton.addEventListener('click', () => {
+      event.preventDefault();
       popup.style.display = 'none';
     });
 

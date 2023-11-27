@@ -12,11 +12,11 @@
   {% include 'operaciones/headerSupport.html' %}
 
   <div class="header">
-    <form id="search-form" method="POST" action="/follow_up">
+    <!--<form id="search-form" method="POST" action="/follow_up">
       <input type="text" id="search-input" name="ruc" placeholder="Buscar por RUC...">
       <button type="submit">Buscar</button>
-    </form>
-    <button type="button" id="uploadButton">Nuevo Registro</button>
+    </form>-->
+    <button type="button" class="buttom_header newRegister">Nuevo Registro</button>
   </div>
 
   <div class="table-container">
@@ -24,10 +24,10 @@
       <thead>
         <tr>
           <th style="display:none;">ID</th>
-          <th>Mes</th>
-          <th>Año</th>
-          <th>Estado</th>
-          <th>Acciones</th>
+          <th>MES</th>
+          <th>AÑO</th>
+          <th>ESTADO</th>
+          <th>ACCIONES</th>
         </tr>
       </thead>
       <tbody>
@@ -47,7 +47,7 @@
           <th><a href="{{ url_for('operaciones.detail_MonthlyS', register_id=list[0]) }}" target="_blank"><i
                 class="fa-solid fa-circle-info"></i>
               <a class="active-button"><i class="fa-solid fa-check"></i></a></th>
-        </tr>
+        </tr> 
         {% endfor %}
       </tbody>
     </table>
@@ -60,20 +60,16 @@
     </div>
   </div>
 
-  <div id="uploadPopup" class="popup" style="display: none;">
+  <div id="newRegister-popup" class="popup" > 
     <div class="popup-content">
-      <span class="close-button" id="close-upload-popup">&times;</span>
-      <h2>Cargar Archivo Excel</h2>
+      <h2>Confirmación</h2>
+      <p>Añadir Registro Mensual</p>
 
-      <!-- Form for uploading the Excel file -->
-      <form method="post" action="/upload_inactive_tracking" enctype="multipart/form-data">
-        <div class="input-container">
-          <label class="label-overlay" for="excelFile">Seleccionar archivo Excel</label>
-          <input class="styled-input" type="file" name="excelFile" id="excelFile" accept=".xls, .xlsx" required>
-        </div>
-
-        <button class="styled-input styled-button-popUp" type="submit" id="uploadFileButton">Cargar</button>
+      <form method="post" action="/newRegister" autocomplete="off">
+        <button type="submit" class="styled-input styled-accept-popUp" id="confirm-newRegister">Aceptar</button>
+        <button class="styled-input styled-cancel-popUp " id="newRegister-cancel">Cancelar</button>
       </form>
+      
     </div>
   </div>
 
@@ -85,28 +81,28 @@
       <form method="post" action="/endMonthlySupport" autocomplete="off">
         <input type="hidden" id="monthlySupport_id" name="monthlySupport_id" value="">
         <button type="submit" class="styled-input styled-accept-popUp" id="confirm-active">Aceptar</button>
+        <button class="styled-input styled-cancel-popUp" id="active-cancel">Cancelar</button>
       </form>
-      
-      <button class="styled-input styled-cancel-popUp" id="active-cancel">Cancelar</button>
     </div>
   </div>
 
   
 
   <script>
-    // ... (your existing code)
-
-    // Add a new event listener for the "Nuevo Seguimiento" button
-    const uploadButton = document.getElementById('uploadButton');
-    const uploadPopup = document.getElementById('uploadPopup');
-    const closeUploadPopupButton = document.getElementById('close-upload-popup');
-
-    uploadButton.addEventListener('click', () => {
-      uploadPopup.style.display = 'block';
+    const newRegisterButton = document.querySelectorAll('.newRegister');
+    const newRegisterPopup = document.getElementById('newRegister-popup');
+    const confirmnewRegisterButton = document.getElementById('confirm-newRegister');
+    const newRegisterCancelButton = document.getElementById('newRegister-cancel');
+  
+    newRegisterButton.forEach(button => {
+      button.addEventListener('click', () => {
+        newRegisterPopup.style.display = 'block';
+      });
     });
-
-    closeUploadPopupButton.addEventListener('click', () => {
-      uploadPopup.style.display = 'none';
+  
+    newRegisterCancelButton.addEventListener('click', () => {
+      event.preventDefault();
+      newRegisterPopup.style.display = 'none';
     });
   </script>
 
@@ -127,6 +123,7 @@
   });
 
   activeCancelButton.addEventListener('click', () => {
+    event.preventDefault();
     activePopup.style.display = 'none';
   });
 </script>
