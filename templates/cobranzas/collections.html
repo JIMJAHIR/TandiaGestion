@@ -37,7 +37,7 @@
           <th>CONTRASEÑA</th>
           <th>LINK CD</th>
           <th>CONTRASEÑA</th>
-          <th>VENCIMIENTO</th>
+          <th>VENCIMIENTO</th> 
         </tr>
       </thead>
       <tbody>
@@ -97,7 +97,7 @@
           {% if cliente[51] == none %}
           <td> - </td>
           {% else %}
-          <td>{{ cliente[51] }}</td>
+          <td><a href="{{cliente[51]}}" target="_blank"> DESCARGAR </a></td>
           {% endif %}
 
           {% if cliente[52] == none %}

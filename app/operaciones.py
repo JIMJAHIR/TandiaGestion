@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, render_template, request, redirect, url_fo
 from functools import wraps
 import mysql.connector
 import openpyxl
-from app.models import clientes_imp, clientes_imp_filtrados, create_new_implementation, create_newAtention, detail_MonthlySupport, detail_Support, detail_contact, detail_contactS, detail_follow_up, detail_follow_update, detail_followU, list_follow_up, list_monthly_support, list_trains, list_users, new_company, new_train, obtener_info_clientes, obtener_info_clientes_contrato, obtener_info_clientes_filtrados, obtener_new_clientes, obtener_new_clientes_filtrados, register_follow_contact, register_support_contact
+from app.models import clientes_imp, clientes_imp_filtrados, create_newAtention, detail_MonthlySupport, detail_Support, detail_contact, detail_contactS, detail_follow_up, detail_follow_update, detail_followU, list_follow_up, list_monthly_support, list_trains, list_users, new_company, new_train, obtener_info_clientes, obtener_info_clientes_contrato, obtener_info_clientes_filtrados, obtener_new_clientes, obtener_new_clientes_filtrados, register_follow_contact, register_support_contact, update_implementation
 from cnx import DB_CONFIG
 from datetime import datetime
 
@@ -27,6 +27,31 @@ def buscar_contrato():
 
     try:
         cursor.execute("SELECT contract_number FROM company WHERE ruc = %s", (ruc,))
+        resultado = cursor.fetchone()
+
+        if resultado:
+            contrato_encontrado = resultado[0]
+        else:
+            contrato_encontrado = ''
+
+        return contrato_encontrado
+
+    except Exception as e:
+        print(f"Error al buscar contrato: {e}")
+        return jsonify({'error': 'Error al buscar contrato'}), 500
+
+    finally:
+        cursor.close()
+        conn.close()
+
+@operaciones_bp.route('/buscar_implementacion', methods=['GET'])
+def buscar_implementacion():
+    ruc = request.args.get('ruc', '')
+    conn = mysql.connector.connect(**DB_CONFIG)
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("SELECT contract_number FROM implementation WHERE ruc = %s", (ruc,))
         resultado = cursor.fetchone()
 
         if resultado:
@@ -113,14 +138,14 @@ def newImplmentation():
         comercial_email = request.form.get('comercial_email')
         taxes = request.form.get('taxes')
         secundary_user = request.form.get('secundary_user')
-        pass_secundary_user = request.form.get('pass_secundary_user')
+        pass_secundary_user = request.form.get('pass_secundary_user') 
         url_cd = request.form.get('url_cd')
         pass_cd = request.form.get('pass_cd')
         expiration_cd = request.form.get('expiration_cd')
         gr_pass = request.form.get('gr_pass')
         gr_id = request.form.get('gr_id')
 
-        create_new_implementation(ruc, user_id, contract_number, pass_sun_boolean, pass_sun, pass_pass_sun, comercial_name, comercial_address,
+        update_implementation(ruc, user_id, contract_number, pass_sun_boolean, pass_sun, pass_pass_sun, comercial_name, comercial_address,
                                   comercial_phone, comercial_email, taxes, secundary_user, pass_secundary_user, url_cd, pass_cd, expiration_cd, gr_pass, gr_id)
 
         return redirect(url_for('operaciones.list_implementation')) 

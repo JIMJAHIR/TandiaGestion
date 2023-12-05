@@ -12,13 +12,13 @@
   {% include 'operaciones/headerSupport.html' %}
 
   <div class="header">
-    <!--<form id="search-form" method="POST" action="/follow_up">
+    <form id="search-form" method="POST" action="/follow_up">
       <input type="text" id="search-input" name="ruc" placeholder="Buscar por RUC...">
-      <button type="submit">Buscar</button>-->
+      <button type="submit">Buscar</button>
     </form>
   </div>
 
-  <div class="table-container">
+  <div class="table-container"> 
     <table class="clientes">
       <thead>
         <tr>
@@ -36,17 +36,17 @@
       <tbody>
         {% for cliente in lista_clientes %}
         <tr>
-          <td>{{ cliente[40] }}</td>
+          <td>{{ cliente[40] }}</td> 
           <td>{{ cliente[3] }}</td>
 
           {% if cliente[13] != '' %}
-          <td>{{ cliente[13] }}</td>
-          <td>{{ cliente[14] }}</td>
-          <td>{{ cliente[15] }}</td>
-          {% else %}
           <td>{{ cliente[10] }}</td>
           <td>{{ cliente[11] }}</td>
           <td>{{ cliente[12] }}</td>
+          {% else %}
+          <td>{{ cliente[13] }}</td>
+          <td>{{ cliente[14] }}</td>
+          <td>{{ cliente[15] }}</td>
           {% endif %}
           <td>{{ cliente[41] }}</td>
           <td>{{ cliente[42] }}</td>

@@ -13,9 +13,6 @@ async function validateForm() {
     const imp_exists = await validar_registro(rucValue);
 
     if (imp_exists) {
-      validationMessage.textContent = 'RUC ya existe en la base de datos*';
-      validationMessage.style.paddingTop = '5px'
-    } else {
       const client_exists = await validar_client(rucValue);
 
       if (client_exists) {
@@ -25,6 +22,9 @@ async function validateForm() {
         validationMessage.textContent = 'No existe un cliente con el RUC ingresado*';
         validationMessage.style.paddingTop = '5px'
       }
+    } else {
+      validationMessage.textContent = 'RUC no existe en la base de datos*';
+      validationMessage.style.paddingTop = '5px'
     }
   } else {
     validationMessage.textContent = 'Longitud Mínima 11 caracteres*';
@@ -35,7 +35,7 @@ async function validateForm() {
   submit_implementation.disabled = !rucValid;
   submit_implementation.style.backgroundColor = rucValid ? 'rgba(37, 99, 235)' : '#ccc';
 }
-
+ 
 async function validar_registro(ruc) {
   const response = await fetch(`/verificar_ruc?ruc=${ruc}`);
   const data = await response.json();
