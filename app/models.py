@@ -83,7 +83,7 @@ def obtener_new_clientes_filtrados(ruc):
         cursor = conn.cursor()
 
         # Call a stored procedure to retrieve filtered client data
-        cursor.callproc('obtener_info_clientes_filtrados', [ruc])
+        cursor.callproc('obtener_new_clientes_filtrados', [ruc])
 
         # Retrieve the results
         for result in cursor.stored_results():
@@ -542,19 +542,19 @@ def register_support_contact(detail_id, type_contact, comment_contact):
         cursor.close()
         conn.close()
 
-    except Exception as e:
+    except Exception as e: 
         # Handle any exceptions that might occur during the database operation
         print(f"Error in create_new_implementation: {str(e)}")
 
 
-def create_new_implementation(ruc, user_id,contract_number, pass_sun_boolean, pass_sun, pass_pass_sun, comercial_name, comercial_address, comercial_phone, comercial_email, taxes, secundary_user, pass_secundary_user, url_cd, pass_cd, expiration_cd, gr_pass, gr_id):
+def update_implementation(ruc, user_id,contract_number, pass_sun_boolean, pass_sun, pass_pass_sun, comercial_name, comercial_address, comercial_phone, comercial_email, taxes, secundary_user, pass_secundary_user, url_cd, pass_cd, expiration_cd, gr_pass, gr_id):
     try:
         # Establish the database connection using DB_CONFIG
         conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
 
         # Call a stored procedure to retrieve filtered client data
-        cursor.callproc('create_new_implementation', [ruc, user_id, contract_number, pass_sun_boolean, pass_sun, pass_pass_sun, comercial_name, comercial_address,
+        cursor.callproc('update_implementation', [user_id, contract_number, pass_sun_boolean, pass_sun, pass_pass_sun, comercial_name, comercial_address,
                         comercial_phone, comercial_email, taxes, secundary_user, pass_secundary_user, url_cd, pass_cd, expiration_cd, gr_pass, gr_id])
 
         cursor.callproc('change_state_imp',[ruc,'EN PROCESO'])
@@ -566,8 +566,8 @@ def create_new_implementation(ruc, user_id,contract_number, pass_sun_boolean, pa
 
     except Exception as e:
         # Handle any exceptions that might occur during the database operation
-        print(f"Error in create_new_implementation: {str(e)}")
-
+        print(f"Error in update_implementation: {str(e)}")
+ 
 
 def create_new_client(user_id, closure_type, ruc, social_name, legal_representative, doc_number, department, tax_address,
                       business_line, client_name, client_email, client_phone, implementor_name, implementor_email,
@@ -585,7 +585,8 @@ def create_new_client(user_id, closure_type, ruc, social_name, legal_representat
                                               implementor_phone, plan, contract_type, stores_number, stores_conf, users_number, users_conf, link_contract,
                                               fe, buy_cd, guides, initial_amount_plan, pending_amount, invoice_number, renew_amount, payment_date, start_date, end_date,
                                               comment_i, comment_c, sale_type, p_estado_imp])
-
+        
+        cursor.callproc('new_contract', [user_id,ruc])
         # Retrieve the results
         # Commit the changes to the database
         conn.commit()

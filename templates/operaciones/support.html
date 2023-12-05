@@ -43,13 +43,11 @@
       <tbody>
         {% for cliente in lista_clientes %}
         <tr>
-
           {% if cliente[40] == none %}
           <td> - </td>
           {% else %}
           <td>{{ cliente[40] }}</td>
           {% endif %}
-
           <td>{{ cliente[3] }}</td>
           <td>{{ cliente[5] }}</td>
           <td>{{ cliente[16] }}</td>

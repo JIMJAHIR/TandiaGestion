@@ -163,7 +163,7 @@ def extra_sale():
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO extra (user_id, ruc_extra, contract_extra, reason_extra, amount_extra, nro_fac_extra, pay_day_extra, nro_doc_extra, name_extra, num_client_extra, commentry_extra, type_extra) VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s)", [user_id, ruc_extra, contract_extra, reason_extra, amount_extra, nro_fac_extra, pay_day_extra, nro_doc_extra, name_extra, num_client_extra, commentry_extra, type_extra])
-        conn.commit()
+        conn.commit() 
 
         return redirect(url_for('ventas.extraSale'))
 

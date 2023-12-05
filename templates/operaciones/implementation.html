@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
@@ -15,7 +15,7 @@
   <div class="conteiner-new conteiner-imp">
     <form method="post" action="{{ url_for('operaciones.newImplmentation')}}" autocomplete="off">
 
-      <div class="inf-conteiner-newClient">
+      <div class="inf-conteiner-newClient"> 
 
         <div class="titulo-newCliente">
           <p>Información Implementación</p>
@@ -24,15 +24,15 @@
         <div class="conteiner-infoNewClient conteiner-infoNewClient-three">
 
           <div class="newInput-container">
-            <label class="label-overlay">Ruc</label>
+            <label class="label-overlay" for="ruc">Ruc</label>
             <input class="styled-input" type="text" id="ruc" name="ruc" required
-              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-              value="{{ client }}" placeholder="{{ client }}">
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="{{ client }}"
+              placeholder="{{ client }}">
             <span class="ruc-validation-message" id="ruc-validation-message"></span>
           </div>
 
           <div class="newInput-container">
-            <label class="label-overlay">Nro de Contrato</label>
+            <label class="label-overlay" for="contract_number">Nro de Contrato</label>
             <input class="styled-input" type="text" id="contract_number" name="contract_number" required>
           </div>
 
@@ -164,14 +164,14 @@
         <div class="conteiner-infoNewClient conteiner-infoNewClient-three">
 
           <div class="newInput-container">
-            <label class="label-overlay">Ruc</label>
+            <label class="label-overlay" for="ruc">Ruc</label>
             <input class="styled-input" type="text" id="ruc" name="ruc" required
               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
             <span class="ruc-validation-message" id="ruc-validation-message"></span>
           </div>
 
           <div class="newInput-container">
-            <label class="label-overlay">Nro de Contrato</label>
+            <label class="label-overlay" for="contract_number">Nro de Contrato</label>
             <input class="styled-input" type="text" id="contract_number" name="contract_number" required>
           </div>
 
@@ -223,7 +223,7 @@
           <div class="newInput-container">
             <label class="label-overlay">Correo Comercial</label>
             <input class="styled-input" type="email" id="comercial_email" name="comercial_email" required>
-          </div> 
+          </div>
 
           <div class="newInput-container">
             <label class="label-overlay">Tipo de Impuesto</label>
@@ -291,6 +291,37 @@
     </form>
   </div>
   {% endif %}
+
+  <script>
+    document.getElementById('ruc').addEventListener('input', consultarRuc);
+
+    function consultarRuc() {
+      var ruc = document.getElementById('ruc').value;
+      var contractNumberInput = document.getElementById('contract_number');
+
+      if (ruc.trim() !== '') {
+        fetch('/buscar_implementacion?ruc=' + ruc)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.text();
+          })
+          .then(contratoEncontrado => {
+            if (contratoEncontrado.trim() !== '') {
+              contractNumberInput.value = contratoEncontrado;
+
+              var contractNumberEvent = new Event('input');
+              contractNumberInput.dispatchEvent(contractNumberEvent);
+            }
+          })
+          .catch(error => {
+            console.error('Error during fetch:', error);
+            alert('Hubo un problema al realizar la consulta del RUC.');
+          });
+      }
+    }
+  </script>
 
 
 
